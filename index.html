@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DEVICE LOCKED</title>
+
+<style>
+body {
+    margin:0;
+    background:black;
+    color:red;
+    font-family:monospace;
+    text-align:center;
+}
+
+#lock {
+    margin-top:100px;
+}
+
+#timer {
+    font-size:50px;
+    margin-top:20px;
+}
+
+.glitch {
+    font-size:40px;
+    animation: glitch 0.1s infinite;
+}
+
+@keyframes glitch {
+    0%{transform:translate(2px,-2px);}
+    25%{transform:translate(-2px,2px);}
+    50%{transform:translate(2px,2px);}
+    75%{transform:translate(-2px,-2px);}
+}
+</style>
+</head>
+
+<body>
+
+<div id="lock">
+    <div class="glitch">🔒 DEVICE LOCKED</div>
+    <p>Unauthorized Access Detected</p>
+    <div id="timer">05:00</div>
+    <p>DO NOT EXIT</p>
+</div>
+
+<script>
+let total = 300; // 5 minit
+
+function updateTimer(){
+    let min = Math.floor(total / 60);
+    let sec = total % 60;
+
+    document.getElementById("timer").innerText =
+        (min<10?"0":"")+min + ":" + (sec<10?"0":"")+sec;
+
+    total--;
+
+    if(total < 0){
+        document.body.innerHTML = "<h1Bsyar atau kena hack!</h1>";
+    }
+}
+
+setInterval(updateTimer,1000);
+
+// fullscreen (fake lock feeling)
+document.documentElement.requestFullscreen().catch(()=>{});
+
+// ESCAPE SECRET (penting!)
+document.addEventListener("keydown", function(e){
+    if(e.key === "u"){ // tekan huruf 'u' untuk keluar
+        alert("Kau dah kena hack!");
+        location.reload();
+    }
+});
+</script>
+
+</body>
+</html>
